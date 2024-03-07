@@ -21,3 +21,26 @@ export const post = mutation({
     return task
   }
 })
+
+export const update = mutation({
+  args: {
+    isCompleted: v.boolean(),
+    id: v.id("tasks")
+  },
+  handler: async (ctx, args) => {
+    const task = await ctx.db.patch(args.id, {
+      isCompleted: args.isCompleted,
+    })
+    return task
+  }
+})
+
+export const remove = mutation({
+  args: {
+    id: v.id("tasks")
+  },
+  handler: async (ctx, args) => {
+    const task = await ctx.db.delete(args.id)
+    return task
+  }
+})
